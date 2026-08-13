@@ -43,18 +43,26 @@
         .page-title { text-align: center; font-size: 2.2rem; color: var(--primary); margin-bottom: 10px; font-weight: 700; }
         .page-subtitle { text-align: center; color: var(--gray); margin-bottom: 30px; font-size: 0.95rem; }
 
-        /* Toolbar (Filter/Sort - pamje estetike e e-commerce) */
+        /* Toolbar (Filter & Grid Toggle) */
         .collection-toolbar { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #ddd; margin-bottom: 30px; font-size: 0.9rem; color: var(--gray); }
+        .toolbar-group { display: flex; align-items: center; gap: 10px; }
         .toolbar-group select { border: 1px solid #ccc; padding: 8px 12px; border-radius: 5px; outline: none; font-family: inherit; font-size: 0.85rem; }
+        
+        .grid-btn { background: transparent; border: none; font-size: 1.3rem; color: #ccc; cursor: pointer; transition: 0.3s; padding: 5px; }
+        .grid-btn.active { color: var(--primary); }
+        .grid-btn:hover { color: var(--primary-hover); }
 
         /* Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; transition: 0.3s; }
+        .product-grid.force-1-col { grid-template-columns: 1fr !important; }
+        .product-grid.force-1-col .product-card { max-width: 450px; margin: 0 auto; width: 100%; }
+        .product-grid.force-2-col { grid-template-columns: repeat(2, 1fr) !important; }
         
         /* Product Card */
         .product-card { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); display: flex; flex-direction: column; overflow: hidden; transition: transform 0.3s ease; }
         .product-card:hover { transform: translateY(-5px); }
 
-        /* Image Hover Swap (Zëvendëson Karuselin) */
+        /* Image Hover Swap (3:4 Format) */
         .image-container { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #fafafa; }
         .image-container img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
         .img-hover { opacity: 0; }
@@ -74,10 +82,10 @@
 
         /* Pagination */
         .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 50px; }
-        .page-num { width: 40px; height: 40px; border-radius: 8px; background: var(--white); border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--dark); font-weight: 600; transition: 0.3s; }
+        .page-num { width: 40px; height: 40px; border-radius: 8px; background: var(--white); border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--dark); font-weight: 600; cursor: pointer; transition: 0.3s; }
         .page-num.active, .page-num:hover { background: var(--primary); color: var(--white); border-color: var(--primary); }
 
-        /* Cart Drawer & Footer mbeten të pandryshuara */
+        /* Cart Drawer */
         .cart-modal { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100vh; background: var(--white); box-shadow: -5px 0 25px rgba(0,0,0,0.2); z-index: 2000; transition: 0.4s; display: flex; flex-direction: column; }
         .cart-modal.open { right: 0; }
         .cart-header { background: var(--primary); color: var(--white); padding: 20px; display: flex; justify-content: space-between; align-items: center; }
@@ -90,6 +98,8 @@
         .btn-whatsapp { background: #25D366; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; text-transform: uppercase; }
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500; display: none; }
         .overlay.active { display: block; }
+        
+        /* Footer */
         footer { background: var(--dark); color: var(--white); padding: 40px 5% 20px 5%; border-top: 4px solid var(--accent); text-align: center; }
         .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .social-icons { display: flex; gap: 20px; }
@@ -97,7 +107,8 @@
         .social-btn:hover { background: var(--primary); color: var(--white); transform: translateY(-3px); }
         .copyright { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; color: #888; font-size: 0.85rem; width: 100%; }
 
-        /* Responsive Mobile - 2 produkte per rresht si faqja reference */
+        /* Responsive */
+        .hide-mobile { display: inline-block; }
         @media (max-width: 900px) {
             .product-grid { grid-template-columns: repeat(3, 1fr); }
         }
@@ -106,7 +117,7 @@
             .nav-menu.active { left: 0; }
             .hamburger { display: block; }
             .product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-            .collection-toolbar { display: none; /* Fshihet ne mobile per pasterti */ }
+            .hide-mobile { display: none !important; }
             .product-details { padding: 15px 10px; }
             .product-title { font-size: 0.95rem; }
             .add-btn { font-size: 0.75rem; padding: 8px;}
@@ -138,120 +149,317 @@
     </header>
 
     <section class="catalog">
-        <h1 class="page-title">Produktet</h1>
+        <h1 class="page-title">Koleksioni Ynë</h1>
         
-        <!-- Toolbar e ngjashme me Shopify -->
+        <!-- Toolbar me filtrin dhe butonat e Grid -->
         <div class="collection-toolbar">
             <div class="toolbar-group">
-                <span>16 produkte</span>
+                <span id="product-count">Po shfaqen 12 produkte</span>
             </div>
+            
             <div class="toolbar-group">
-                <label>Rendit sipas: </label>
-                <select>
-                    <option>Më të rejat</option>
-                    <option>Çmimi: Ulët - Lartë</option>
-                    <option>Çmimi: Lartë - Ulët</option>
-                </select>
+                <label class="hide-mobile">Pamja:</label>
+                <!-- Butonat per ndryshimin e pamjes ne celular/desktop -->
+                <button id="btn-grid-1" class="grid-btn" onclick="setGrid(1)"><i class="fas fa-square"></i></button>
+                <button id="btn-grid-2" class="grid-btn" onclick="setGrid(2)"><i class="fas fa-th-large"></i></button>
+                <button id="btn-grid-4" class="grid-btn active hide-mobile" onclick="setGrid(4)"><i class="fas fa-th"></i></button>
             </div>
         </div>
 
-        <div class="product-grid">
+        <div class="product-grid" id="productGrid">
 
-            <!-- Model 1 -->
-            <div class="product-card">
+            <!-- Gjenerimi i 16 Fustaneve -->
+            <!-- Model 1 (Faqja 1) -->
+            <div class="product-card" data-page="1">
                 <div class="image-container">
-                    <!-- Foto Kryesore -->
                     <img src="Dresses Images/Dress1_1.jpg" class="img-main" alt="Fustan Elegancë N°01">
-                    <!-- Foto Hover -->
-                    <img src="Dresses Images/Dress1_2.jpg" class="img-hover" alt="Fustan Detaj">
+                    <img src="Dresses Images/Dress1_2.jpg" class="img-hover" alt="Detaj">
                 </div>
                 <div class="product-details">
                     <h3 class="product-title">Fustan Elegancë N°01</h3>
                     <p class="product-price">€120,00</p>
-                    
                     <div class="quick-add-form">
                         <select class="size-select" id="size-1">
                             <option value="" disabled selected>Zgjidh Masën</option>
-                            <option value="0-3 Muaj">0 - 3 Muaj</option>
-                            <option value="1 Vjeç">1 Vjeç</option>
-                            <option value="2 Vjeç">2 Vjeç</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
                         </select>
                         <button class="add-btn" onclick="addToCart('Fustan Elegancë N°01', 'size-1', 120)">Shto në Shportë</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Model 2 -->
-            <div class="product-card">
+            <!-- Model 2 (Faqja 1) -->
+            <div class="product-card" data-page="1">
                 <div class="image-container">
                     <img src="Dresses Images/Dress2_1.jpg" class="img-main" alt="Fustan Elegancë N°02">
-                    <img src="Dresses Images/Dress2_2.jpg" class="img-hover" alt="Fustan Detaj">
+                    <img src="Dresses Images/Dress2_2.jpg" class="img-hover" alt="Detaj">
                 </div>
                 <div class="product-details">
                     <h3 class="product-title">Fustan Elegancë N°02</h3>
                     <p class="product-price">€150,00</p>
-                    
                     <div class="quick-add-form">
                         <select class="size-select" id="size-2">
                             <option value="" disabled selected>Zgjidh Masën</option>
-                            <option value="0-3 Muaj">0 - 3 Muaj</option>
-                            <option value="1 Vjeç">1 Vjeç</option>
-                            <option value="2 Vjeç">2 Vjeç</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
                         </select>
                         <button class="add-btn" onclick="addToCart('Fustan Elegancë N°02', 'size-2', 150)">Shto në Shportë</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Model 3 -->
-            <div class="product-card">
+            <!-- Model 3 (Faqja 1) -->
+            <div class="product-card" data-page="1">
                 <div class="image-container">
                     <img src="Dresses Images/Dress3_1.jpg" class="img-main" alt="Fustan Elegancë N°03">
-                    <img src="Dresses Images/Dress3_2.jpg" class="img-hover" alt="Fustan Detaj">
+                    <img src="Dresses Images/Dress3_2.jpg" class="img-hover" alt="Detaj">
                 </div>
                 <div class="product-details">
                     <h3 class="product-title">Fustan Elegancë N°03</h3>
                     <p class="product-price">€140,00</p>
-                    
                     <div class="quick-add-form">
                         <select class="size-select" id="size-3">
                             <option value="" disabled selected>Zgjidh Masën</option>
-                            <option value="0-3 Muaj">0 - 3 Muaj</option>
-                            <option value="1 Vjeç">1 Vjeç</option>
-                            <option value="2 Vjeç">2 Vjeç</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
                         </select>
                         <button class="add-btn" onclick="addToCart('Fustan Elegancë N°03', 'size-3', 140)">Shto në Shportë</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Model 4 -->
-            <div class="product-card">
+            <!-- Model 4 (Faqja 1) -->
+            <div class="product-card" data-page="1">
                 <div class="image-container">
                     <img src="Dresses Images/Dress4_1.jpg" class="img-main" alt="Fustan Elegancë N°04">
-                    <img src="Dresses Images/Dress4_2.jpg" class="img-hover" alt="Fustan Detaj">
+                    <img src="Dresses Images/Dress4_2.jpg" class="img-hover" alt="Detaj">
                 </div>
                 <div class="product-details">
                     <h3 class="product-title">Fustan Elegancë N°04</h3>
                     <p class="product-price">€130,00</p>
-                    
                     <div class="quick-add-form">
                         <select class="size-select" id="size-4">
                             <option value="" disabled selected>Zgjidh Masën</option>
-                            <option value="0-3 Muaj">0 - 3 Muaj</option>
-                            <option value="1 Vjeç">1 Vjeç</option>
-                            <option value="2 Vjeç">2 Vjeç</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
                         </select>
                         <button class="add-btn" onclick="addToCart('Fustan Elegancë N°04', 'size-4', 130)">Shto në Shportë</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Model 5 (Faqja 1) -->
+            <div class="product-card" data-page="1">
+                <div class="image-container">
+                    <img src="Dresses Images/Dress5_1.jpg" class="img-main" alt="Fustan Elegancë N°05">
+                    <img src="Dresses Images/Dress5_2.jpg" class="img-hover" alt="Detaj">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Fustan Elegancë N°05</h3>
+                    <p class="product-price">€125,00</p>
+                    <div class="quick-add-form">
+                        <select class="size-select" id="size-5">
+                            <option value="" disabled selected>Zgjidh Masën</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
+                        </select>
+                        <button class="add-btn" onclick="addToCart('Fustan Elegancë N°05', 'size-5', 125)">Shto në Shportë</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Model 6 (Faqja 1) -->
+            <div class="product-card" data-page="1">
+                <div class="image-container">
+                    <img src="Dresses Images/Dress6_1.jpg" class="img-main" alt="Fustan Elegancë N°06">
+                    <img src="Dresses Images/Dress6_2.jpg" class="img-hover" alt="Detaj">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Fustan Elegancë N°06</h3>
+                    <p class="product-price">€145,00</p>
+                    <div class="quick-add-form">
+                        <select class="size-select" id="size-6">
+                            <option value="" disabled selected>Zgjidh Masën</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
+                        </select>
+                        <button class="add-btn" onclick="addToCart('Fustan Elegancë N°06', 'size-6', 145)">Shto në Shportë</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model 7 (Faqja 1) -->
+            <div class="product-card" data-page="1">
+                <div class="image-container">
+                    <img src="Dresses Images/Dress7_1.jpg" class="img-main" alt="Fustan Elegancë N°07">
+                    <img src="Dresses Images/Dress7_2.jpg" class="img-hover" alt="Detaj">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Fustan Elegancë N°07</h3>
+                    <p class="product-price">€135,00</p>
+                    <div class="quick-add-form">
+                        <select class="size-select" id="size-7">
+                            <option value="" disabled selected>Zgjidh Masën</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
+                        </select>
+                        <button class="add-btn" onclick="addToCart('Fustan Elegancë N°07', 'size-7', 135)">Shto në Shportë</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model 8 (Faqja 1) -->
+            <div class="product-card" data-page="1">
+                <div class="image-container">
+                    <img src="Dresses Images/Dress8_1.jpg" class="img-main" alt="Fustan Elegancë N°08">
+                    <img src="Dresses Images/Dress8_2.jpg" class="img-hover" alt="Detaj">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Fustan Elegancë N°08</h3>
+                    <p class="product-price">€155,00</p>
+                    <div class="quick-add-form">
+                        <select class="size-select" id="size-8">
+                            <option value="" disabled selected>Zgjidh Masën</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
+                        </select>
+                        <button class="add-btn" onclick="addToCart('Fustan Elegancë N°08', 'size-8', 155)">Shto në Shportë</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model 9 (Faqja 1) -->
+            <div class="product-card" data-page="1">
+                <div class="image-container">
+                    <img src="Dresses Images/Dress9_1.jpg" class="img-main" alt="Fustan Elegancë N°09">
+                    <img src="Dresses Images/Dress9_2.jpg" class="img-hover" alt="Detaj">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Fustan Elegancë N°09</h3>
+                    <p class="product-price">€110,00</p>
+                    <div class="quick-add-form">
+                        <select class="size-select" id="size-9">
+                            <option value="" disabled selected>Zgjidh Masën</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
+                        </select>
+                        <button class="add-btn" onclick="addToCart('Fustan Elegancë N°09', 'size-9', 110)">Shto në Shportë</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model 11 (Faqja 1) -->
+            <div class="product-card" data-page="1">
+                <div class="image-container">
+                    <img src="Dresses Images/Dress11_1.jpg" class="img-main" alt="Fustan Elegancë N°11">
+                    <img src="Dresses Images/Dress11_2.jpg" class="img-hover" alt="Detaj">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Fustan Elegancë N°11</h3>
+                    <p class="product-price">€145,00</p>
+                    <div class="quick-add-form">
+                        <select class="size-select" id="size-11">
+                            <option value="" disabled selected>Zgjidh Masën</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
+                        </select>
+                        <button class="add-btn" onclick="addToCart('Fustan Elegancë N°11', 'size-11', 145)">Shto në Shportë</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model 12 (Faqja 1) -->
+            <div class="product-card" data-page="1">
+                <div class="image-container">
+                    <img src="Dresses Images/Dress12_1.jpg" class="img-main" alt="Fustan Elegancë N°12">
+                    <img src="Dresses Images/Dress12_2.jpg" class="img-hover" alt="Detaj">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Fustan Elegancë N°12</h3>
+                    <p class="product-price">€160,00</p>
+                    <div class="quick-add-form">
+                        <select class="size-select" id="size-12">
+                            <option value="" disabled selected>Zgjidh Masën</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
+                        </select>
+                        <button class="add-btn" onclick="addToCart('Fustan Elegancë N°12', 'size-12', 160)">Shto në Shportë</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model 13 (Faqja 1) -->
+            <div class="product-card" data-page="1">
+                <div class="image-container">
+                    <img src="Dresses Images/Dress13_1.jpg" class="img-main" alt="Fustan Elegancë N°13">
+                    <img src="Dresses Images/Dress13_2.jpg" class="img-hover" alt="Detaj">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Fustan Elegancë N°13</h3>
+                    <p class="product-price">€135,00</p>
+                    <div class="quick-add-form">
+                        <select class="size-select" id="size-13">
+                            <option value="" disabled selected>Zgjidh Masën</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
+                        </select>
+                        <button class="add-btn" onclick="addToCart('Fustan Elegancë N°13', 'size-13', 135)">Shto në Shportë</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model 14 (Faqja 2) - Hidden by default -->
+            <div class="product-card" data-page="2" style="display: none;">
+                <div class="image-container">
+                    <img src="Dresses Images/Dress14_1.jpg" class="img-main" alt="Fustan Elegancë N°14">
+                    <img src="Dresses Images/Dress14_2.jpg" class="img-hover" alt="Detaj">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Fustan Elegancë N°14</h3>
+                    <p class="product-price">€125,00</p>
+                    <div class="quick-add-form">
+                        <select class="size-select" id="size-14">
+                            <option value="" disabled selected>Zgjidh Masën</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
+                        </select>
+                        <button class="add-btn" onclick="addToCart('Fustan Elegancë N°14', 'size-14', 125)">Shto në Shportë</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model 15 (Faqja 2) -->
+            <div class="product-card" data-page="2" style="display: none;">
+                <div class="image-container">
+                    <img src="Dresses Images/Dress15_1.jpg" class="img-main" alt="Fustan Elegancë N°15">
+                    <img src="Dresses Images/Dress15_2.jpg" class="img-hover" alt="Detaj">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Fustan Elegancë N°15</h3>
+                    <p class="product-price">€150,00</p>
+                    <div class="quick-add-form">
+                        <select class="size-select" id="size-15">
+                            <option value="" disabled selected>Zgjidh Masën</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
+                        </select>
+                        <button class="add-btn" onclick="addToCart('Fustan Elegancë N°15', 'size-15', 150)">Shto në Shportë</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model 16 (Faqja 2) -->
+            <div class="product-card" data-page="2" style="display: none;">
+                <div class="image-container">
+                    <img src="Dresses Images/Dress16_1.jpg" class="img-main" alt="Fustan Elegancë N°16">
+                    <img src="Dresses Images/Dress16_2.jpg" class="img-hover" alt="Detaj">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Fustan Elegancë N°16</h3>
+                    <p class="product-price">€170,00</p>
+                    <div class="quick-add-form">
+                        <select class="size-select" id="size-16">
+                            <option value="" disabled selected>Zgjidh Masën</option>
+                            <option value="6-9 Muaj">6 - 9 Muaj</option><option value="9-12 Muaj">9 - 12 Muaj</option><option value="1 Vjeç">1 Vjeç</option><option value="2 Vjeç">2 Vjeç</option><option value="3 Vjeç">3 Vjeç</option><option value="4 Vjeç">4 Vjeç</option><option value="5 Vjeç">5 Vjeç</option><option value="6 Vjeç">6 Vjeç</option><option value="7 Vjeç">7 Vjeç</option><option value="8 Vjeç">8 Vjeç</option><option value="9 Vjeç">9 Vjeç</option><option value="10+ Vjeç">10+ Vjeç</option>
+                        </select>
+                        <button class="add-btn" onclick="addToCart('Fustan Elegancë N°16', 'size-16', 170)">Shto në Shportë</button>
                     </div>
                 </div>
             </div>
 
         </div>
 
+        <!-- Pagination Menu -->
         <div class="pagination">
-            <a href="#" class="page-num active">1</a>
-            <a href="#" class="page-num">2</a>
+            <div class="page-num active" id="pageBtn1" onclick="showPage(1)">1</div>
+            <div class="page-num" id="pageBtn2" onclick="showPage(2)">2</div>
         </div>
     </section>
 
@@ -291,14 +499,57 @@
     </div>
 
     <script>
-        // Mobile Nav Auto Close
+        // Paginimi (Kalon faqet 1 - 2)
+        function showPage(pageNum) {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                if (card.getAttribute('data-page') == pageNum) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Perditeso numrat e menuse
+            document.querySelectorAll('.page-num').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('pageBtn' + pageNum).classList.add('active');
+
+            // Kthehu ne krye te listes me pamje te bute
+            window.scrollTo({ top: document.querySelector('.catalog').offsetTop - 80, behavior: 'smooth' });
+        }
+
+        // Ndryshimi i Rreshtave (1 kolonë vs 2 vs 4 kolona)
+        function setGrid(cols) {
+            const grid = document.getElementById('productGrid');
+            const btn1 = document.getElementById('btn-grid-1');
+            const btn2 = document.getElementById('btn-grid-2');
+            const btn4 = document.getElementById('btn-grid-4');
+
+            // Fshi klasat dhe statusin active
+            grid.classList.remove('force-1-col', 'force-2-col');
+            btn1.classList.remove('active');
+            btn2.classList.remove('active');
+            if(btn4) btn4.classList.remove('active');
+
+            if (cols === 1) {
+                grid.classList.add('force-1-col');
+                btn1.classList.add('active');
+            } else if (cols === 2) {
+                grid.classList.add('force-2-col');
+                btn2.classList.add('active');
+            } else if (cols === 4) {
+                if(btn4) btn4.classList.add('active');
+            }
+        }
+
+        // Hapja/Mbyllja e menuse ne Celular
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
         const navLinks = document.querySelectorAll('.nav-link');
         hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
         navLinks.forEach(link => link.addEventListener('click', () => navMenu.classList.remove('active')));
 
-        // Cart Logic
+        // Funksionaliteti i Shportes & WhatsApp
         let cart = [];
         const openCartBtn = document.getElementById('openCart');
         const closeCartBtn = document.getElementById('closeCart');
@@ -322,8 +573,6 @@
             cart.push({ title, size, price });
             updateCartUI();
             toggleCart();
-            
-            // Reset select dropdown
             sizeSelect.selectedIndex = 0;
         }
 
