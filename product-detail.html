@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chloe Dress Store | Detajet e Produktit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #c2185b;
+            --primary-hover: #9c0d45;
+            --accent: #ffd700;
+            --dark: #1a1a1a;
+            --light-bg: #fff0f5;
+            --white: #ffffff;
+            --gray: #666666;
+            --shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--light-bg); color: var(--dark); }
+
+        /* --- HEADER --- */
+        header { background: var(--primary); padding: 15px 5%; position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--accent); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-circle { width: 45px; height: 45px; border: 2px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.2rem; }
+        .logo-text { font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: var(--accent); font-weight: bold; line-height: 1; }
+        .logo-sub { display: block; font-size: 0.65rem; letter-spacing: 2px; color: var(--white); text-transform: uppercase; }
+
+        .nav-menu { display: flex; list-style: none; gap: 15px; }
+        .nav-link { color: var(--white); text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 8px 16px; border-radius: 20px; transition: 0.3s; }
+        .nav-link:hover, .nav-link.active { background: var(--accent); color: var(--dark); }
+        
+        .nav-icons { display: flex; align-items: center; gap: 20px; }
+        .cart-icon-btn { background: transparent; border: none; color: var(--white); font-size: 1.3rem; cursor: pointer; position: relative; text-decoration: none; display: flex; align-items: center; }
+        .cart-badge { position: absolute; top: -8px; right: -10px; background: var(--accent); color: var(--dark); font-size: 0.75rem; font-weight: bold; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .hamburger { display: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* --- BREADCRUMB --- */
+        .breadcrumb { max-width: 1200px; margin: 20px auto 0 auto; padding: 0 20px; font-size: 0.85rem; color: var(--gray); }
+        .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+        /* --- PRODUCT DETAIL SECTION --- */
+        .product-detail-container { max-width: 1200px; margin: 30px auto 70px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        
+        /* Gallery */
+        .gallery-container { display: flex; flex-direction: column; gap: 15px; }
+        .main-image { width: 100%; aspect-ratio: 3/4; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); background: #fff; border: 1px solid #eee; }
+        .main-image img { width: 100%; height: 100%; object-fit: cover; }
+        .thumbnail-list { display: flex; gap: 12px; }
+        .thumb { width: 80px; aspect-ratio: 3/4; border-radius: 8px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: 0.3s; opacity: 0.7; }
+        .thumb.active, .thumb:hover { border-color: var(--primary); opacity: 1; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Info Section */
+        .product-info { background: var(--white); padding: 35px; border-radius: 12px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 20px; }
+        .p-title { font-size: 2rem; color: var(--dark); font-weight: 700; }
+        .p-price { font-size: 1.8rem; color: var(--primary); font-weight: 700; }
+        .p-desc { color: var(--gray); font-size: 0.95rem; line-height: 1.6; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 15px 0; }
+
+        /* Form Elements */
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-size: 0.9rem; font-weight: 600; color: var(--dark); }
+        .size-select { width: 100%; padding: 12px 15px; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fafafa; font-family: inherit; }
+        .quantity-control { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 8px; width: max-content; overflow: hidden; }
+        .qty-btn { width: 40px; height: 40px; background: #f0f0f0; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .qty-btn:hover { background: #e0e0e0; }
+        .qty-input { width: 50px; height: 40px; border: none; text-align: center; font-size: 1rem; font-weight: 600; outline: none; }
+
+        /* Action Buttons */
+        .action-buttons { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+        .btn-add-cart { background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 14px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-add-cart:hover { background: var(--primary); color: var(--white); }
+        .btn-buy-now { background: var(--primary); border: 2px solid var(--primary); color: var(--white); padding: 14px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-buy-now:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+
+        /* Store Features List */
+        .product-meta-list { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; font-size: 0.85rem; color: var(--gray); }
+        .meta-item { display: flex; align-items: center; gap: 10px; }
+        .meta-item i { color: var(--primary); font-size: 1rem; }
+
+        /* --- CART / CHECKOUT MODAL --- */
+        .cart-modal { position: fixed; top: 0; right: -100%; width: 100%; max-width: 420px; height: 100vh; background: var(--white); box-shadow: -5px 0 25px rgba(0,0,0,0.2); z-index: 2000; transition: 0.4s; display: flex; flex-direction: column; }
+        .cart-modal.open { right: 0; }
+        .cart-header { background: var(--primary); color: var(--white); padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .close-cart { background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+        .cart-body { padding: 20px; overflow-y: auto; flex-grow: 1; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        
+        /* Summary Lines for Checkout */
+        .checkout-summary { margin-bottom: 15px; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem; }
+        .summary-row { display: flex; justify-content: space-between; color: var(--gray); }
+        .summary-row.total { font-weight: 700; font-size: 1.15rem; color: var(--dark); border-top: 1px dashed #ccc; padding-top: 8px; margin-top: 4px; }
+
+        .cart-footer { padding: 20px; background: #f9f9f9; border-top: 1px solid #eee; }
+        .order-form { display: flex; flex-direction: column; gap: 10px; }
+        .order-form input { padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.9rem; outline: none; }
+        .btn-whatsapp { background: #25D366; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; text-transform: uppercase; font-size: 0.95rem; }
+        .btn-whatsapp:hover { background: #1eb956; }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500; display: none; }
+        .overlay.active { display: block; }
+
+        /* --- FOOTER --- */
+        footer { background: var(--dark); color: var(--white); padding: 40px 5% 20px 5%; border-top: 4px solid var(--accent); text-align: center; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .social-icons { display: flex; gap: 20px; }
+        .social-btn { width: 45px; height: 45px; background: rgba(255, 255, 255, 0.1); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; text-decoration: none; border: 1px solid rgba(255, 215, 0, 0.3); transition: 0.3s; }
+        .social-btn:hover { background: var(--primary); color: var(--white); transform: translateY(-3px); }
+        .copyright { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; color: #888; font-size: 0.85rem; width: 100%; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-detail-container { grid-template-columns: 1fr; gap: 30px; margin-bottom: 40px; }
+            .nav-menu { position: fixed; top: 75px; left: -100%; width: 100%; height: calc(100vh - 75px); background: var(--primary); flex-direction: column; align-items: center; padding-top: 40px; transition: 0.4s; }
+            .nav-menu.active { left: 0; }
+            .hamburger { display: block; }
+            .product-info { padding: 20px; }
+            .p-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-circle"><i class="fas fa-crown"></i></div>
+                <div><span class="logo-text">Chloe</span><span class="logo-sub">Dress Store</span></div>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Kreu</a></li>
+                <li><a href="dresses.html" class="nav-link active">Koleksioni i Fustaneve</a></li>
+                <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button class="cart-icon-btn" id="openCartBtn" title="Shiko Shportën">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </button>
+                <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="index.html">Kreu</a> / <a href="dresses.html">Koleksioni</a> / <span id="breadTitle">Fustan Elegancë</span>
+    </div>
+
+    <section class="product-detail-container">
+        <!-- Galeria e Fotove -->
+        <div class="gallery-container">
+            <div class="main-image">
+                <img id="mainImg" src="" alt="Fustan Chloe Store">
+            </div>
+            <div class="thumbnail-list">
+                <div class="thumb active" onclick="switchImage(this, 'img1')">
+                    <img id="thumb1" src="" alt="Faqja para">
+                </div>
+                <div class="thumb" onclick="switchImage(this, 'img2')">
+                    <img id="thumb2" src="" alt="Detaj apo mbrapa">
+                </div>
+            </div>
+        </div>
+
+        <!-- Detajet dhe Formularit -->
+        <div class="product-info">
+            <h1 class="p-title" id="productTitle">Fustan Elegancë</h1>
+            <div class="p-price" id="productPrice">€0.00</div>
+            
+            <p class="p-desc">
+                Fustan luksoz i punuar me dorë me materiale të cilësisë premium, i dizajnuar me kujdes për të ofruar rehati dhe stil unik për vajzën tuaj në ditët më të rëndësishme.
+            </p>
+
+            <div class="form-group">
+                <label for="sizeSelect">Zgjidh Masën:</label>
+                <select class="size-select" id="sizeSelect">
+                    <option value="" disabled selected>-- Kliko për të zgjedhur masën --</option>
+                    <option value="6-9 Muaj">6 - 9 Muaj</option>
+                    <option value="9-12 Muaj">9 - 12 Muaj</option>
+                    <option value="1 Vjeç">1 Vjeç</option>
+                    <option value="2 Vjeç">2 Vjeç</option>
+                    <option value="3 Vjeç">3 Vjeç</option>
+                    <option value="4 Vjeç">4 Vjeç</option>
+                    <option value="5 Vjeç">5 Vjeç</option>
+                    <option value="6 Vjeç">6 Vjeç</option>
+                    <option value="7 Vjeç">7 Vjeç</option>
+                    <option value="8 Vjeç">8 Vjeç</option>
+                    <option value="9 Vjeç">9 Vjeç</option>
+                    <option value="10+ Vjeç">10+ Vjeç</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Sasia:</label>
+                <div class="quantity-control">
+                    <button class="qty-btn" onclick="adjustQty(-1)">-</button>
+                    <input type="text" id="productQty" class="qty-input" value="1" readonly>
+                    <button class="qty-btn" onclick="adjustQty(1)">+</button>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-add-cart" onclick="addToCart()"><i class="fas fa-cart-plus"></i> Shto në Shportë</button>
+                <button class="btn-buy-now" onclick="buyNow()"><i class="fas fa-bolt"></i> Porosit Tani</button>
+            </div>
+
+            <div class="product-meta-list">
+                <div class="meta-item"><i class="fas fa-clock"></i> Koha e qepjes: 5–7 ditë pune (Punuar me porosi)</div>
+                <div class="meta-item"><i class="fas fa-truck"></i> Dërgesa me postë në Shqipëri, Kosovë & Rajon</div>
+                <div class="meta-item"><i class="fas fa-shield-alt"></i> Garanci për cilësinë e punimit</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="kontakt">
+        <div class="footer-content">
+            <h3 style="color: var(--accent); font-family: 'Great Vibes', cursive; font-size: 2rem;">Chloe Dress Store</h3>
+            <div class="social-icons">
+                <a href="https://wa.me/355686715188" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://instagram.com/chloe_dress_store" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+                <a href="https://tiktok.com/@chloe_dress" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i></a>
+                <a href="https://maps.app.goo.gl/uAFEYKA2B8LZtSoo7" target="_blank" class="social-btn" title="Vendndodhja në Google Maps"><i class="fas fa-location-dot"></i></a>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2026 Chloe Dress Store. Të gjitha të drejtat të rezervuara.</div>
+    </footer>
+
+    <!-- CART / CHECKOUT DRAWER -->
+    <div class="overlay" id="overlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Shporta Juaj</h3>
+            <button class="close-cart" id="closeCartBtn">&times;</button>
+        </div>
+        <div class="cart-body" id="cartItems">
+            <p style="text-align:center; color:#888;">Shporta është bosh.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="checkout-summary">
+                <div class="summary-row">
+                    <span>Nëntotali:</span>
+                    <span id="cartSubtotal">€0,00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Posta (Shipping):</span>
+                    <span id="shippingFee">€3,00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Totali:</span>
+                    <span id="cartTotal">€0,00</span>
+                </div>
+            </div>
+
+            <div class="order-form">
+                <input type="text" id="custName" placeholder="Emri & Mbiemri" required>
+                <input type="text" id="custAddress" placeholder="Adresa / Qyteti" required>
+                <input type="tel" id="custPhone" placeholder="Numri i Telefonit" required>
+                <button class="btn-whatsapp" onclick="sendOrderWhatsApp()"><i class="fab fa-whatsapp"></i> Dërgo Porosinë në WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SHIPPING_COST = 3.00;
+
+        // --- 1. POPULLIMI I TË DHËNAVE NGA URL ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const pTitle = urlParams.get('title') || "Fustan Elegancë";
+        const pPrice = parseFloat(urlParams.get('price')) || 120;
+        const img1 = urlParams.get('img1') || "Dresses Images/Dress1_1.jpg";
+        const img2 = urlParams.get('img2') || "Dresses Images/Dress1_2.jpg";
+
+        document.getElementById('productTitle').innerText = pTitle;
+        document.getElementById('breadTitle').innerText = pTitle;
+        document.getElementById('productPrice').innerText = "€" + pPrice.toFixed(2);
+        
+        const mainImg = document.getElementById('mainImg');
+        const thumb1 = document.getElementById('thumb1');
+        const thumb2 = document.getElementById('thumb2');
+
+        mainImg.src = img1;
+        thumb1.src = img1;
+        thumb2.src = img2;
+
+        function switchImage(element, imgType) {
+            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+            mainImg.src = imgType === 'img1' ? img1 : img2;
+        }
+
+        function adjustQty(change) {
+            const qtyInput = document.getElementById('productQty');
+            let current = parseInt(qtyInput.value) || 1;
+            current += change;
+            if (current < 1) current = 1;
+            qtyInput.value = current;
+        }
+
+        // --- 2. SHTIMI NË SHPORTË (LOCALSTORAGE) ---
+        function getCart() {
+            return JSON.parse(localStorage.getItem('chloe_cart')) || [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('chloe_cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function addToCart() {
+            const size = document.getElementById('sizeSelect').value;
+            const qty = parseInt(document.getElementById('productQty').value) || 1;
+
+            if(!size) {
+                alert("Ju lutem zgjidhni masën para se ta shtoni produktin në shportë!");
+                return;
+            }
+
+            let cart = getCart();
+            cart.push({ title: pTitle, price: pPrice, size: size, qty: qty, img: img1 });
+            saveCart(cart);
+            toggleCart(true);
+        }
+
+        function buyNow() {
+            const size = document.getElementById('sizeSelect').value;
+            if(!size) {
+                alert("Ju lutem zgjidhni masën!");
+                return;
+            }
+            addToCart();
+        }
+
+        // --- 3. MENAXHIMI I SHPORTËS UI ---
+        const cartModal = document.getElementById('cartModal');
+        const overlay = document.getElementById('overlay');
+
+        function toggleCart(open) {
+            if(open) {
+                cartModal.classList.add('open');
+                overlay.classList.add('active');
+            } else {
+                cartModal.classList.remove('open');
+                overlay.classList.remove('active');
+            }
+        }
+
+        document.getElementById('openCartBtn').addEventListener('click', () => toggleCart(true));
+        document.getElementById('closeCartBtn').addEventListener('click', () => toggleCart(false));
+        overlay.addEventListener('click', () => toggleCart(false));
+
+        function removeFromCart(index) {
+            let cart = getCart();
+            cart.splice(index, 1);
+            saveCart(cart);
+        }
+
+        function updateCartUI() {
+            const cart = getCart();
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartSubtotal = document.getElementById('cartSubtotal');
+            const shippingFee = document.getElementById('shippingFee');
+            const cartTotal = document.getElementById('cartTotal');
+
+            cartCount.innerText = cart.length;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align:center; color:#888;">Shporta është bosh.</p>';
+                cartSubtotal.innerText = '€0,00';
+                shippingFee.innerText = '€0,00';
+                cartTotal.innerText = '€0,00';
+                return;
+            }
+
+            let html = '';
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.qty;
+                subtotal += itemTotal;
+                html += `
+                    <div class="cart-item">
+                        <div>
+                            <div style="font-weight:600">${item.title}</div>
+                            <div style="font-size:0.8rem; color:var(--primary)">Masa: ${item.size} | Sasia: ${item.qty}</div>
+                            <div style="font-weight:700; margin-top:4px;">€${itemTotal.toFixed(2)}</div>
+                        </div>
+                        <button style="color:var(--primary); background:none; border:none; cursor:pointer; font-size:1.1rem;" onclick="removeFromCart(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+
+            const grandTotal = subtotal + SHIPPING_COST;
+
+            cartItemsContainer.innerHTML = html;
+            cartSubtotal.innerText = '€' + subtotal.toFixed(2);
+            shippingFee.innerText = '€' + SHIPPING_COST.toFixed(2);
+            cartTotal.innerText = '€' + grandTotal.toFixed(2);
+        }
+
+        // --- 4. DËRGIMI I POROSISË NË WHATSAPP ---
+        function sendOrderWhatsApp() {
+            const cart = getCart();
+            if (cart.length === 0) return alert("Shporta juaj është bosh!");
+
+            const name = document.getElementById('custName').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+
+            if (!name || !address || !phone) return alert("Ju lutem plotësoni të gjitha fushat e formularit (Emrin, Adresën dhe Telefonin)!");
+
+            let itemsList = "";
+            let subtotal = 0;
+
+            cart.forEach((item, i) => {
+                const sub = item.price * item.qty;
+                itemsList += `${i + 1}. *${item.title}*%0A   - Masa: ${item.size}%0A   - Sasia: ${item.qty}%0A   - Çmimi: €${sub.toFixed(2)}%0A`;
+                subtotal += sub;
+            });
+
+            const grandTotal = subtotal + SHIPPING_COST;
+
+            const message = `Përshëndetje *Chloe Dress Store*! Dëshiroj të bëj këtë porosi:%0A%0A*PRODUKTET:*%0A${itemsList}%0A------------------------------%0A*Nëntotali:* €${subtotal.toFixed(2)}%0A*Posta:* €${SHIPPING_COST.toFixed(2)}%0A*TOTALI I POROSISË:* €${grandTotal.toFixed(2)}%0A------------------------------%0A%0A*TË DHËNAT E KLIENTIT:*%0A👤 Emri: ${name}%0A📍 Adresa/Qyteti: ${address}%0A📞 Tel: ${phone}`;
+
+            // Hap WhatsApp
+            window.open(`https://wa.me/355686715188?text=${message}`, '_blank');
+        }
+
+        // Menu Mobile & Inicimi i faqes
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+
+        document.addEventListener('DOMContentLoaded', updateCartUI);
+    </script>
+</body>
+</html>
