@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chloe Dress Store | Kryesore</title>
     
-    <!-- Fontet e reja elegante -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Fontet elegante -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #222222;        /* E zezë e butë për tekstin kryesor */
-            --accent: #a38d82;         /* Ngjyrë toke/blush elegante për detajet */
-            --light-bg: #fcf9f8;       /* Sfond i lehtë dhe i ngrohtë */
+            --primary: #222222;
             --white: #ffffff;
             --gray: #666666;
             --border: #f0f0f0;
@@ -33,15 +31,10 @@
             line-height: 1.6;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
-        }
-
         /* ----- HEADER ----- */
         header { 
             background: var(--white); 
-            padding: 20px 5%; 
+            padding: 15px 5%; 
             position: sticky; 
             top: 0; 
             z-index: 1000; 
@@ -57,388 +50,208 @@
         }
         
         .logo { 
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            text-decoration: none; 
-        }
-        
-        .logo-text { 
-            font-size: 2rem; 
-            color: var(--primary); 
-            font-style: italic;
-            font-weight: 600; 
-            line-height: 1; 
-            letter-spacing: 1px;
-        }
-        
-        .logo-sub { 
-            font-size: 0.7rem; 
-            letter-spacing: 3px; 
-            color: var(--gray); 
-            text-transform: uppercase; 
-            margin-top: 4px;
-        }
-        
-        .nav-menu { 
-            display: flex; 
-            list-style: none; 
-            gap: 30px; 
-        }
-        
-        .nav-link { 
-            color: var(--primary); 
-            text-decoration: none; 
-            font-weight: 400; 
-            font-size: 0.95rem; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s; 
-        }
-        
-        .nav-link:hover, .nav-link.active { 
-            color: var(--accent); 
-        }
-        
-        .hamburger { 
-            display: none; 
-            color: var(--primary); 
+            font-family: 'Jost', sans-serif;
             font-size: 1.5rem; 
-            cursor: pointer; 
-        }
-
-        /* ----- HERO SECTION ----- */
-        .hero { 
-            height: 75vh; 
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=1500&q=80') center/cover; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            text-align: center; 
-            color: var(--white); 
-            padding: 0 20px; 
-        }
-        
-        .hero-content h1 { 
-            font-size: 4rem; 
-            margin-bottom: 15px; 
-            font-style: italic;
-        }
-        
-        .hero p { 
-            font-size: 1.2rem; 
-            max-width: 600px; 
-            margin: 0 auto 35px auto; 
-            font-weight: 300; 
+            font-weight: 600;
+            color: var(--primary); 
+            text-decoration: none; 
             letter-spacing: 0.5px;
         }
         
-        .btn-primary { 
-            background: var(--white); 
-            color: var(--primary); 
-            padding: 14px 40px; 
-            text-decoration: none; 
-            font-weight: 500; 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease; 
-        }
-        
-        .btn-primary:hover { 
-            background: var(--primary); 
-            color: var(--white); 
-        }
-
-        /* ----- FEATURES ----- */
-        .features { 
-            background-color: var(--light-bg);
-            padding: 50px 5%;
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 40px; 
-            text-align: center;
-        }
-        
-        .feature-box { 
-            padding: 20px;
-        }
-        
-        .feature-box i { 
-            font-size: 1.8rem; 
-            color: var(--accent); 
-            margin-bottom: 15px; 
-        }
-        
-        .feature-box h4 { 
-            font-size: 1.2rem; 
-            margin-bottom: 10px; 
+        .nav-icons { 
+            display: flex; 
+            gap: 20px; 
+            font-size: 1.2rem;
             color: var(--primary);
         }
-        
-        .feature-box p { 
-            font-size: 0.95rem; 
-            color: var(--gray); 
-        }
 
-        /* ----- ABOUT SECTION ----- */
-        .about-section { 
-            padding: 80px 5%; 
-            background: var(--white);
-        }
-        
-        .about-container { 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 60px; 
-            align-items: center; 
-        }
-        
-        .about-img img { 
-            width: 100%; 
-            aspect-ratio: 3 / 4; /* Formati 3:4 per fustanet */
-            object-fit: cover;
-        }
-        
-        .about-text h2 { 
-            font-size: 2.5rem; 
-            color: var(--primary); 
-            margin-bottom: 25px; 
-            font-style: italic;
-        }
-        
-        .about-text p { 
-            color: var(--gray); 
-            margin-bottom: 20px; 
-            font-size: 1.05rem;
-        }
-
-        /* ----- TESTIMONIALS ----- */
-        .testimonials { 
-            background-color: var(--light-bg);
-            padding: 80px 5%; 
+        /* ----- SEKSIONET ME IMAZH NE SFOND (Sipas Fotove) ----- */
+        .image-section {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            padding: 80px 20px;
+            color: var(--white);
+            background-size: cover;
+            background-position: center;
+            min-height: 85vh;
         }
-        
-        .section-title { 
-            font-size: 2.2rem; 
-            color: var(--primary); 
-            margin-bottom: 15px; 
-            font-style: italic;
+
+        /* Shtresë e errët mbi foto për të lexuar tekstin qartë */
+        .image-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.35); 
+            z-index: 1;
         }
-        
-        .section-subtitle { 
-            color: var(--gray); 
-            margin-bottom: 50px; 
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.85rem;
+
+        .image-section > * {
+            position: relative;
+            z-index: 2;
         }
-        
-        .test-grid { 
+
+        .image-section h1 {
+            font-family: 'Jost', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.1;
             max-width: 900px;
-            margin: 0 auto;
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 40px; 
+        }
+
+        .image-section p {
+            font-family: 'Jost', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            max-width: 800px;
+            margin-bottom: 40px;
+            line-height: 1.4;
+        }
+
+        .about-text-block p {
+            margin-bottom: 25px;
+        }
+
+        /* Butonat Transparent me Kontur */
+        .btn-outline {
+            display: inline-block;
+            padding: 14px 40px;
+            border: 1px solid var(--white);
+            border-radius: 8px; /* Kënde të lakuara lehtë si në foto */
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Fotot e Sfondit per secilin seksion */
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=1500&q=80');
         }
         
-        .test-card { 
-            padding: 30px; 
+        .order-bg {
+            background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1500&q=80');
         }
-        
-        .test-card p { 
-            font-style: italic; 
-            color: var(--gray); 
-            font-size: 1.1rem; 
-            margin-bottom: 20px; 
-            font-family: 'Playfair Display', serif;
+
+        .about-bg {
+            background-image: url('https://images.unsplash.com/photo-1587241321921-91a834d6d191?auto=format&fit=crop&w=1500&q=80');
         }
-        
-        .test-user { 
-            font-weight: 500; 
-            color: var(--primary); 
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+
+        /* ----- INFO BAR (VIP LIST) ----- */
+        .newsletter-bar {
+            background-color: #fff0f5; /* Ngjyrë e lehtë rozë si në fund të fotos */
+            text-align: center;
+            padding: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--primary);
         }
 
         /* ----- FOOTER ----- */
         footer { 
             background: var(--white); 
             color: var(--primary); 
-            padding: 60px 5% 30px 5%; 
+            padding: 40px 5% 20px 5%; 
             border-top: 1px solid var(--border); 
             text-align: center; 
         }
         
-        .footer-content { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 25px; 
-        }
-        
-        .footer-logo {
-            font-family: 'Playfair Display', serif; 
-            font-size: 2rem; 
-            font-style: italic;
-            color: var(--primary);
-        }
-
         .social-icons { 
             display: flex; 
+            justify-content: center;
             gap: 25px; 
+            margin-bottom: 20px;
         }
         
         .social-btn { 
             color: var(--gray); 
-            font-size: 1.2rem; 
+            font-size: 1.3rem; 
             text-decoration: none; 
             transition: color 0.3s; 
         }
         
         .social-btn:hover { 
-            color: var(--accent); 
+            color: #000; 
         }
         
         .copyright { 
-            margin-top: 40px; 
             color: var(--gray); 
             font-size: 0.85rem; 
-            letter-spacing: 0.5px;
         }
 
         /* ----- RESPONSIVE ----- */
         @media (max-width: 768px) {
-            .nav-menu { 
-                position: fixed; 
-                top: 70px; 
-                left: -100%; 
-                width: 100%; 
-                height: auto;
-                background: var(--white); 
-                flex-direction: column; 
-                align-items: center; 
-                padding: 40px 0; 
-                transition: 0.4s; 
-                border-bottom: 1px solid var(--border);
-                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            .image-section h1 { 
+                font-size: 2.5rem; 
             }
-            .nav-menu.active { 
-                left: 0; 
-            }
-            .hamburger { 
-                display: block; 
-            }
-            .about-container { 
-                grid-template-columns: 1fr; 
-                gap: 40px;
-            }
-            .hero-content h1 { 
-                font-size: 2.8rem; 
+            .image-section p {
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header (Menu) -->
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-text">Chloe</span>
-                <span class="logo-sub">Dress Store</span>
-            </a>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html" class="nav-link active">Kreu</a></li>
-                <li><a href="dresses.html" class="nav-link">Koleksioni i Fustaneve</a></li>
-                <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+            <div><i class="fas fa-bars"></i> &nbsp;&nbsp; <i class="fas fa-search"></i></div>
+            <a href="index.html" class="logo">Chloe Dress Store</a>
+            <div class="nav-icons">
+                <i class="far fa-user"></i>
+                <i class="fas fa-shopping-bag"></i>
+            </div>
         </div>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Chloe Dress Store</h1>
-            <p>Elegancë dhe magji për ditët më të rëndësishme të vajzave tuaja.</p>
-            <a href="dresses.html" class="btn-primary">Shiko Koleksionin</a>
-        </div>
+    <!-- Seksioni 1: Hero (Bazuar në image.png sipër) -->
+    <section class="image-section hero-bg">
+        <h1>Fustane elegante për princesha të vogla</h1>
+        <p>Punuar me dashuri, dizenjuar për të shkëlqyer në çdo moment të veçantë.</p>
+        <a href="dresses.html" class="btn-outline">Shiko fustanet</a>
     </section>
 
-    <div class="features">
-        <div class="feature-box">
-            <i class="fas fa-ruler-combined"></i>
-            <h4>Sipas Masës</h4>
-            <p>Qepje e personalizuar plotësisht sipas përmasave të fëmijës juaj.</p>
+    <!-- Seksioni 2: Made to Order (Bazuar në image.png poshtë) -->
+    <section class="image-section order-bg">
+        <h1>Me porosi</h1>
+        <p>Çdo fustan qepet posaçërisht për ju. Ju lutem lejoni 5–7 ditë për prodhim për të garantuar cilësinë maksimale.</p>
+    </section>
+
+    <!-- Seksioni 3: Rreth Nesh (Bazuar në image_2.png) -->
+    <section class="image-section about-bg">
+        <div class="about-text-block">
+            <p>Chloe Dress Store u themelua në vitin 2017, si një dyqan online i krijuar me pasion për fustane elegante dhe unike për vajza të vogla.</p>
+            <p>Çdo pjesë punohet me kujdes me dorë, me dashuri, vëmendje ndaj detajeve dhe me dëshirën për ta bërë çdo moment të veçantë.</p>
+            <p>Misioni ynë është të sjellim bukuri, butësi dhe vetëbesim për çdo princeshë të vogël.</p>
         </div>
-        <div class="feature-box">
-            <i class="fas fa-gem"></i>
-            <h4>Cilësi Premium</h4>
-            <p>Materiale luksoze e të rehatshme për lëkurën e fëmijëve.</p>
-        </div>
-        <div class="feature-box">
-            <i class="fas fa-shipping-fast"></i>
-            <h4>Dërgesa me Postë</h4>
-            <p>Shërbim i shpejtë në Shqipëri, Kosovë dhe të gjithë rajonin.</p>
-        </div>
+        <a href="dresses.html" class="btn-outline">Gjej fustanin e saj perfekt</a>
+    </section>
+
+    <!-- Shiriti i Newsletter -->
+    <div class="newsletter-bar">
+        Join our VIP list 💌 <br>
+        <span style="font-size: 0.9rem; font-weight: 400;">Bëhuni të parët që zbuloni fustanet e reja & ofertat ekskluzive</span>
     </div>
 
-    <section class="about-section">
-        <div class="about-container">
-            <div class="about-img">
-                <!-- Imazhi do të qëndrojë gjithmonë në formatin 3:4 -->
-                <img src="Dresses Images/Dress3_1.jpg" alt="Chloe Store">
-            </div>
-            <div class="about-text">
-                <h2>Rreth Nesh</h2>
-                <p>Në <strong>Chloe Dress Store</strong> secili fustan është një vepër arti më vete. Ne nuk punojmë me prodhime masive, pasi besojmë se çdo fëmijë është unikal.</p>
-                <p>Çdo model që shihni në koleksionin tonë punohet posaçërisht me porosi, duke u kujdesur për çdo detaj të qepjes, dantellave dhe komoditetit absolut për të vegjlit tuaj.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials">
-        <h2 class="section-title">Përvojat e Nënave</h2>
-        <p class="section-subtitle">Ajo që thonë klientët tanë për ne</p>
-        <div class="test-grid">
-            <div class="test-card">
-                <p>"Fustani për 3-vjetorin e vajzës ishte fjalë për fjalë i përsosur! Cilësia e punimit i kaloi të gjitha pritshmëritë tona."</p>
-                <div class="test-user">Valbona M.</div>
-            </div>
-            <div class="test-card">
-                <p>"Doli ekzakisht si në foto dhe me masa ideale. Faleminderit Chloe Store për përkujdesjen e veçantë!"</p>
-                <div class="test-user">Arta K.</div>
-            </div>
-        </div>
-    </section>
-
-    <footer id="kontakt">
-        <div class="footer-content">
-            <h3 class="footer-logo">Chloe Dress Store</h3>
-            <div class="social-icons">
-                <a href="https://wa.me/355686715188" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://instagram.com/chloe_dress_store" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
-                <a href="https://tiktok.com/@chloe_dress" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i></a>
-            </div>
+    <!-- Footer -->
+    <footer>
+        <div class="social-icons">
+            <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-btn"><i class="fab fa-tiktok"></i></a>
         </div>
         <div class="copyright">&copy; 2026 Chloe Dress Store. Të gjitha të drejtat të rezervuara.</div>
     </footer>
 
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
-        
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => navMenu.classList.remove('active'));
-        });
-    </script>
 </body>
 </html>
