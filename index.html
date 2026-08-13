@@ -1,371 +1,444 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="sq">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chloe Dress Store</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="icon" href="Logo/Logo4.png">
-  <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chloe Dress Store | Kryesore</title>
+    
+    <!-- Fontet e reja elegante -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #222222;        /* E zezë e butë për tekstin kryesor */
+            --accent: #a38d82;         /* Ngjyrë toke/blush elegante për detajet */
+            --light-bg: #fcf9f8;       /* Sfond i lehtë dhe i ngrohtë */
+            --white: #ffffff;
+            --gray: #666666;
+            --border: #f0f0f0;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            scroll-behavior: smooth; 
+        }
+        
+        body { 
+            font-family: 'Jost', sans-serif; 
+            background-color: var(--white); 
+            color: var(--primary); 
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        /* ----- HEADER ----- */
+        header { 
+            background: var(--white); 
+            padding: 20px 5%; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 1px solid var(--border); 
+        }
+        
+        .nav-container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        
+        .logo { 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            text-decoration: none; 
+        }
+        
+        .logo-text { 
+            font-size: 2rem; 
+            color: var(--primary); 
+            font-style: italic;
+            font-weight: 600; 
+            line-height: 1; 
+            letter-spacing: 1px;
+        }
+        
+        .logo-sub { 
+            font-size: 0.7rem; 
+            letter-spacing: 3px; 
+            color: var(--gray); 
+            text-transform: uppercase; 
+            margin-top: 4px;
+        }
+        
+        .nav-menu { 
+            display: flex; 
+            list-style: none; 
+            gap: 30px; 
+        }
+        
+        .nav-link { 
+            color: var(--primary); 
+            text-decoration: none; 
+            font-weight: 400; 
+            font-size: 0.95rem; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s; 
+        }
+        
+        .nav-link:hover, .nav-link.active { 
+            color: var(--accent); 
+        }
+        
+        .hamburger { 
+            display: none; 
+            color: var(--primary); 
+            font-size: 1.5rem; 
+            cursor: pointer; 
+        }
+
+        /* ----- HERO SECTION ----- */
+        .hero { 
+            height: 75vh; 
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=1500&q=80') center/cover; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            color: var(--white); 
+            padding: 0 20px; 
+        }
+        
+        .hero-content h1 { 
+            font-size: 4rem; 
+            margin-bottom: 15px; 
+            font-style: italic;
+        }
+        
+        .hero p { 
+            font-size: 1.2rem; 
+            max-width: 600px; 
+            margin: 0 auto 35px auto; 
+            font-weight: 300; 
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary { 
+            background: var(--white); 
+            color: var(--primary); 
+            padding: 14px 40px; 
+            text-decoration: none; 
+            font-weight: 500; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease; 
+        }
+        
+        .btn-primary:hover { 
+            background: var(--primary); 
+            color: var(--white); 
+        }
+
+        /* ----- FEATURES ----- */
+        .features { 
+            background-color: var(--light-bg);
+            padding: 50px 5%;
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 40px; 
+            text-align: center;
+        }
+        
+        .feature-box { 
+            padding: 20px;
+        }
+        
+        .feature-box i { 
+            font-size: 1.8rem; 
+            color: var(--accent); 
+            margin-bottom: 15px; 
+        }
+        
+        .feature-box h4 { 
+            font-size: 1.2rem; 
+            margin-bottom: 10px; 
+            color: var(--primary);
+        }
+        
+        .feature-box p { 
+            font-size: 0.95rem; 
+            color: var(--gray); 
+        }
+
+        /* ----- ABOUT SECTION ----- */
+        .about-section { 
+            padding: 80px 5%; 
+            background: var(--white);
+        }
+        
+        .about-container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 60px; 
+            align-items: center; 
+        }
+        
+        .about-img img { 
+            width: 100%; 
+            aspect-ratio: 3 / 4; /* Formati 3:4 per fustanet */
+            object-fit: cover;
+        }
+        
+        .about-text h2 { 
+            font-size: 2.5rem; 
+            color: var(--primary); 
+            margin-bottom: 25px; 
+            font-style: italic;
+        }
+        
+        .about-text p { 
+            color: var(--gray); 
+            margin-bottom: 20px; 
+            font-size: 1.05rem;
+        }
+
+        /* ----- TESTIMONIALS ----- */
+        .testimonials { 
+            background-color: var(--light-bg);
+            padding: 80px 5%; 
+            text-align: center;
+        }
+        
+        .section-title { 
+            font-size: 2.2rem; 
+            color: var(--primary); 
+            margin-bottom: 15px; 
+            font-style: italic;
+        }
+        
+        .section-subtitle { 
+            color: var(--gray); 
+            margin-bottom: 50px; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+        }
+        
+        .test-grid { 
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 40px; 
+        }
+        
+        .test-card { 
+            padding: 30px; 
+        }
+        
+        .test-card p { 
+            font-style: italic; 
+            color: var(--gray); 
+            font-size: 1.1rem; 
+            margin-bottom: 20px; 
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .test-user { 
+            font-weight: 500; 
+            color: var(--primary); 
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        /* ----- FOOTER ----- */
+        footer { 
+            background: var(--white); 
+            color: var(--primary); 
+            padding: 60px 5% 30px 5%; 
+            border-top: 1px solid var(--border); 
+            text-align: center; 
+        }
+        
+        .footer-content { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 25px; 
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif; 
+            font-size: 2rem; 
+            font-style: italic;
+            color: var(--primary);
+        }
+
+        .social-icons { 
+            display: flex; 
+            gap: 25px; 
+        }
+        
+        .social-btn { 
+            color: var(--gray); 
+            font-size: 1.2rem; 
+            text-decoration: none; 
+            transition: color 0.3s; 
+        }
+        
+        .social-btn:hover { 
+            color: var(--accent); 
+        }
+        
+        .copyright { 
+            margin-top: 40px; 
+            color: var(--gray); 
+            font-size: 0.85rem; 
+            letter-spacing: 0.5px;
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 768px) {
+            .nav-menu { 
+                position: fixed; 
+                top: 70px; 
+                left: -100%; 
+                width: 100%; 
+                height: auto;
+                background: var(--white); 
+                flex-direction: column; 
+                align-items: center; 
+                padding: 40px 0; 
+                transition: 0.4s; 
+                border-bottom: 1px solid var(--border);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            }
+            .nav-menu.active { 
+                left: 0; 
+            }
+            .hamburger { 
+                display: block; 
+            }
+            .about-container { 
+                grid-template-columns: 1fr; 
+                gap: 40px;
+            }
+            .hero-content h1 { 
+                font-size: 2.8rem; 
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <header>
-    <div class="colume1">
-    <div class="logo">
-        <img src="Logo/Logo4.png" alt="Logo">
-      </div>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">Chloe</span>
+                <span class="logo-sub">Dress Store</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link active">Kreu</a></li>
+                <li><a href="dresses.html" class="nav-link">Koleksioni i Fustaneve</a></li>
+                <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Chloe Dress Store</h1>
+            <p>Elegancë dhe magji për ditët më të rëndësishme të vajzave tuaja.</p>
+            <a href="dresses.html" class="btn-primary">Shiko Koleksionin</a>
+        </div>
+    </section>
+
+    <div class="features">
+        <div class="feature-box">
+            <i class="fas fa-ruler-combined"></i>
+            <h4>Sipas Masës</h4>
+            <p>Qepje e personalizuar plotësisht sipas përmasave të fëmijës juaj.</p>
+        </div>
+        <div class="feature-box">
+            <i class="fas fa-gem"></i>
+            <h4>Cilësi Premium</h4>
+            <p>Materiale luksoze e të rehatshme për lëkurën e fëmijëve.</p>
+        </div>
+        <div class="feature-box">
+            <i class="fas fa-shipping-fast"></i>
+            <h4>Dërgesa me Postë</h4>
+            <p>Shërbim i shpejtë në Shqipëri, Kosovë dhe të gjithë rajonin.</p>
+        </div>
     </div>
-    <div class="colume2">
-    <div class="header-info">
-        <h1>Chloe Dress Store</h1> 
-    </div>
-    <div class="navbar">
-      <li> <a href="#aboutus">About Us</a></li> 
-      <li><a href="#dresses">Dresses</a></li>
-      <li> <a href="#accessories">Accessories</a></li> 
-      <li> <a href="#contact">Contact</a></li> 
-      </div>
-      
-       </div>      
-</header>
- 
-  <main>
-    <section id="about">
-      <h2>Welcome to Chloe Dress Store</h2>
-      <p>"Welcome to "Chloe Dress Store," your premier destination for stylish children's fashion. 
-        Our enchanting dresses are carefully curated to make every moment special. Explore our exquisite collection of handmade baby accessories,
-         adding a touch of craftsmanship and charm to your child's unique style. 
-        Shop now and let your little one shine with us! 
-      </p>
-    </section>
-    <br><br>
 
-
-  
-
-
-
-
-    <section id="dresses">
-      <h2>Dresses Gallery</h2>
-
-
-
-
-
-<h3>"Blossom Burst Springtime Rose":</h3>
-<div class="product">
-  <a target="_self" href="Dresses Images/Dress9_1.jpg">
-    <img src="Dresses Images/Dress9_1.jpg" alt="dress">
-  </a>
-  <a target="_self" href="Dresses Images/Dress9_2.jpg">
-    <img src="Dresses Images/Dress9_2.jpg" alt="dress">
-  </a>
-    <a target="_self" href="Dresses Images/Dress9_3.jpg">
-      <img src="Dresses Images/Dress9_3.jpg" alt="dress">
-    </a>
-  </a></div>
- <div class="desc"> 
-  <p>
-    "Step into a garden of springtime enchantment with this breathtaking rose dress adorned with a bust bursting with floral beauty, capturing the essence of renewal and vitality."
-  </p><br>
-  <a target="_blank" href="https://wa.me/+355686715188?text=Pershendetje, Isha e interesuar per fustanin:'Blossom Burst Springtime Rose'. " class="button">
-    Order Now<i class='fas fa-cart-arrow-down'></i></a><br><br>
-</div>
-
-<br>
-
-
-      <h3>Mother and Daughter in Rose:</h3>
-      <div class="product">
-        <a target="_self" href="Dresses Images/Dress1_1.jpg">
-          <img src="Dresses Images/Dress1_1.jpg" alt="dress">
-        </a>
-        <a target="_self" href="Dresses Images/Dress1_2.jpg">
-          <img src="Dresses Images/Dress1_2.jpg" alt="dress">
-        </a>
-          <a target="_self" href="Dresses Images/Dress1_3.jpg">
-            <img src="Dresses Images/Dress1_3.jpg" alt="dress">
-          </a>
-        </a></div>
-       <div class="desc"> 
-        <p>In matching rose-colored dresses adorned with delicate pearls, mother and daughter radiate timeless elegance and adorable sophistication.
-        </p><br>
-        <a target="_blank" href="https://wa.me/+355686715188?text=Pershendetje, Isha e interesuar per fustanin:'Mother and Daughter in Rose'. " class="button">
-          Order Now<i class='fas fa-cart-arrow-down'></i></a><br><br>
-      </div>
-
-<br>
-
-<h3>Valentine's Dress: </h3>
-<div class="product">
-  <a target="_self" href="Dresses Images/Dress7_1.jpg">
-    <img src="Dresses Images/Dress7_1.jpg" alt="dress">
-  </a>
-  <a target="_self" href="Dresses Images/Dress7_2.jpg">
-    <img src="Dresses Images/Dress7_2.jpg" alt="dress">
-  </a>
-  <a target="_self" href="Dresses Images/Dress7_3.jpg">
-    <img src="Dresses Images/Dress7_3.jpg" alt="dress">
-  </a>
-  </div>
-  <div class="desc"> 
-    <p>“Spreading love in every stitch, our little ones light up Valentine’s Day in this darling white dress adorned with cheerful red hearts.”</p><br>
-    <a target="_blank" href="https://wa.me/+355686715188?text=Pershendetje, Isha e interesuar per fustanin: 'Valentine’s Dress'." class="button">
-      Order Now<i class='fas fa-cart-arrow-down'></i></a><br><br>
-  </div><br><br>
-
-
-  <h3>Enchanted Rose Sparkle:</h3>
-  <div class="product">
-    <a target="_self" href="Dresses Images/Dress8_1.jpg">
-      <img src="Dresses Images/Dress8_1.jpg" alt="dress">
-    </a>
-    <a target="_self" href="Dresses Images/Dress8_2.jpg">
-      <img src="Dresses Images/Dress8_2.jpg" alt="dress">
-    </a>
-      <a target="_self" href="Dresses Images/Dress8_3.jpg">
-        <img src="Dresses Images/Dress8_3.jpg" alt="dress">
-      </a>
-    </a></div>
-   <div class="desc"> 
-    <p>"Capture timeless elegance with this exquisite rose antique dress adorned with delicate sparkles, perfect for adding a touch of glamour to any occasion."        </p><br>
-    <a target="_blank" href="https://wa.me/+355686715188?text=Pershendetje, Isha e interesuar per fustanin:'Enchanted Rose Sparkle'. " class="button">
-      Order Now<i class='fas fa-cart-arrow-down'></i></a><br><br>
-  </div>
-
-<br>
-
-      <h3>Chloe Dress: </h3>
-      <div class="product">
-        <a target="_self" href="Dresses Images/Dress2_1.jpg">
-          <img src="Dresses Images/Dress2_1.jpg" alt="dress">
-        </a>
-        <a target="_self" href="Dresses Images/Dress2_2.jpg">
-          <img src="Dresses Images/Dress2_2.jpg" alt="dress">
-        </a>
-        <a target="_self" href="Dresses Images/Dress2_3.jpg">
-          <img src="Dresses Images/Dress2_3.jpg" alt="dress">
-        </a>
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-img">
+                <!-- Imazhi do të qëndrojë gjithmonë në formatin 3:4 -->
+                <img src="Dresses Images/Dress3_1.jpg" alt="Chloe Store">
+            </div>
+            <div class="about-text">
+                <h2>Rreth Nesh</h2>
+                <p>Në <strong>Chloe Dress Store</strong> secili fustan është një vepër arti më vete. Ne nuk punojmë me prodhime masive, pasi besojmë se çdo fëmijë është unikal.</p>
+                <p>Çdo model që shihni në koleksionin tonë punohet posaçërisht me porosi, duke u kujdesur për çdo detaj të qepjes, dantellave dhe komoditetit absolut për të vegjlit tuaj.</p>
+            </div>
         </div>
-        <div class="desc"> 
-          <p>A stunning purple dress featuring a bold, oversized ribbon at the back, adding a touch of playful elegance to any occasion.</p><br>
-          <a target="_blank" href="https://wa.me/+355686715188?text=Pershendetje, Isha e interesuar per fustanin: 'Chloe Dress'." class="button">
-            Order Now<i class='fas fa-cart-arrow-down'></i></a><br><br>
-        </div><br><br>
-       
-
-        <h3>Chiara Dress:</h3>
-      <div class="product">
-         <a target="_self" href="Dresses Images/Dress3_1.jpg">
-        <img src="Dresses Images/Dress3_1.jpg" alt="Dress 2">
-        <a target="_self" href="Dresses Images/Dress3_2.jpg">
-          <img src="Dresses Images/Dress3_2.jpg" alt="dress">
-        </a> <a target="_self" href="Dresses Images/Dress3_3.jpg">
-          <img src="Dresses Images/Dress3_3.jpg" alt="dress">
-        </a>
-    </a></div>
-    <div class="desc"> 
-      <p>A long, enchanting white dress designed for little princesses to celebrate their birthdays in style, evoking a sense of pure magic and wonder.
-      </p><br>
-      <a target="_blank" href="https://wa.me/+355686715188?text=Pershendetje, Isha e interesuar per fustanin:'Chiara Dress'." class="button">
-        Order Now<i class='fas fa-cart-arrow-down'></i></a><br><br>
-    </div><br><br>
     </section>
 
-
-    <h3>Keisi Dress:</h3>
-    <div class="product">
-      <a target="_self" href="Dresses Images/Dress4_1.jpg">
-        <img src="Dresses Images/Dress4_1.jpg" alt="dress">
-      </a>
-      <a target="_self" href="Dresses Images/Dress4_2.jpg">
-        <img src="Dresses Images/Dress4_2.jpg" alt="dress">
-      </a>
-      <a target="_self" href="Dresses Images/Dress4_3.jpg">
-        <img src="Dresses Images/Dress4_3.jpg" alt="dress">
-      </a>
-      </div>
-      <div class="desc"> 
-        <p>A charming purple dress for , little girls, adorned with delicate pearls in the tutu and sleeves, 
-          complete with a matching headband, making it the perfect ensemble for a touch of enchantment and elegance on any occasion.
-        </p><br>
-        <a target="_blank" href="https://wa.me/+355686715188?text=Pershendetje, Isha e interesuar per fustanin: 'Keisi Dress'." class="button">
-          Order Now<i class='fas fa-cart-arrow-down'></i></a><br><br>
-      </div><br><br>
-
-
-      <h3>First Birthday Rose Dress: </h3>
-      <div class="product">
-        <a target="_self" href="Dresses Images/Dress5_1.jpg">
-          <img src="Dresses Images/Dress5_1.jpg" alt="dress">
-        </a>
-        <a target="_self" href="Dresses Images/Dress5_2.jpg">
-          <img src="Dresses Images/Dress5_2.jpg" alt="dress">
-        </a>
+    <section class="testimonials">
+        <h2 class="section-title">Përvojat e Nënave</h2>
+        <p class="section-subtitle">Ajo që thonë klientët tanë për ne</p>
+        <div class="test-grid">
+            <div class="test-card">
+                <p>"Fustani për 3-vjetorin e vajzës ishte fjalë për fjalë i përsosur! Cilësia e punimit i kaloi të gjitha pritshmëritë tona."</p>
+                <div class="test-user">Valbona M.</div>
+            </div>
+            <div class="test-card">
+                <p>"Doli ekzakisht si në foto dhe me masa ideale. Faleminderit Chloe Store për përkujdesjen e veçantë!"</p>
+                <div class="test-user">Arta K.</div>
+            </div>
         </div>
-        <div class="desc"> 
-          <p>A sweet and adorable rose-colored dress, perfect for your little one's first birthday celebration,
-             adding a touch of charm and innocence to this special milestone.</p><br>
-             <a target="_blank" href="https://wa.me/+355686715188?text=Pershendetje, Isha e interesuar per fustanin:'First Birthday Rose Dress'. " class="button">
-              Order Now<i class='fas fa-cart-arrow-down'></i> </a><br><br>
-        </div><br><br>
-
-
-         <h3>Gold Dress:</h3>
-        <div class="product"> 
-          <a target="_self" href="Dresses Images/Dress6_1.jpg">
-            <img src="Dresses Images/Dress6_1.jpg" alt="dress">
-          </a>
-          <a target="_self" href="Dresses Images/Dress6_2.jpg">
-            <img src="Dresses Images/Dress6_2.jpg" alt="dress">
-          </a>
-          </div>
-          <div class="desc"> 
-            <p> A stunning gold dress for little girls, like a constellation of dreams come true, perfect for making every moment shine with elegance and joy.</p><br>
-            <a target="_blank" href="https://wa.me/+355686715188?text=Pershendetje, Isha e interesuar per fustanin:</a> " class="button">
-                      Order Now<i class='fas fa-cart-arrow-down'></i>
-            </a><br><br>
-          </div><br><br>
-
-    <section id="accessories"><br><br>
-      <h2>Handmade Accessories</h2><br>
-     
-     <H3>Pacifier Holder:</H3>
-      <p>“Make pacifier holders special with your baby’s name or initials.”</p><br>
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/P Holder1.jpg">
-            <img src="Accessories Images/P Holder1.jpg" alt="Pacifier Holder">
-          </a>
-        </div>
-      </div>
-      
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/P Holder2.jpg">
-            <img src="Accessories Images/P Holder2.jpg" alt="Pacifier Holder">
-          </a>
-        </div>
-      </div>
-      
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/P Holder3.jpg">
-            <img src="Accessories Images/P Holder3.jpg" alt="Pacifier Holder">
-          </a>
-        </div>
-      </div>
-      
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/P Holder4.jpg">
-            <img src="Accessories Images/P Holder4.jpg" alt="Pacifier Holder">
-          </a>
-        </div><br><br>
-      </div><br><br>
-
-       
-
-      <h3>Headbands:</h3>
-       <p>“Explore our stylish collection of headbands for a chic accessory.”</p><br>
-
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/HBands1.jpg">
-            <img src="Accessories Images/HBands1.jpg" alt="Head Bands">
-          </a>
-        </div>
-      </div>
-      
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/HBands2.jpg">
-            <img src="Accessories Images/HBands2.jpg" alt="Head Bands">
-          </a>
-        </div>
-      </div>
-      
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/HBands3.jpg">
-            <img src="Accessories Images/HBands3.jpg" alt="Head Bands">
-          </a>
-        </div>
-      </div>
-      
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/HBands4.jpg">
-            <img src="Accessories Images/HBands4.jpg" alt="Head Bands">
-          </a>
-        </div><br><br>
-      </div>
-
-      <h3>Baby Pins:</h3>
-       <p>“Discover a variety of baby pins to adorn your little one’s outfit.”</p><br>
-
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/Baby Pin1.jpg">
-            <img src="Accessories Images/Baby Pin1.jpg" alt="Baby Pins">
-          </a>
-        </div>
-      </div>
-      
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/Baby Pin2.jpg">
-            <img src="Accessories Images/Baby Pin2.jpg" alt="Baby Pins">
-          </a>
-        </div>
-      </div>
-      
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/Baby Pin3.jpg">
-            <img src="Accessories Images/Baby Pin3.jpg" alt="Baby Pins">
-          </a>
-        </div>
-      </div>
-      
-      <div class="responsive">
-        <div class="gallery123">
-          <a target="_self" href="Accessories Images/Baby Pin4.jpg">
-            <img src="Accessories Images/Baby Pin4.jpg" alt="Baby Pins">
-          </a>
-        </div><br><br>
-
     </section>
-  
-    <section id="contact">  
-      <h2>Follow Us on Social Media</h2>
-      <div class="social-icons">
-        <a href="https://www.facebook.com/robaqepsi.lika.5/" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://www.instagram.com/chloe_dress_store/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-        <a href="https://wa.me/+355686715188" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    <br>
-      <div class="contact-info">
-        <h2>Contact Us</h2>
-        <p><i class="fas fa-map-marker-alt"></i> Tiran Albania</p>
-        <p><i class="fas fa-phone"></i> +355 68 671 5188</p>
-        <p><i class="fas fa-envelope"></i> Email: dressstore@gmail.com</p>
-      </div>
-    </section>
-  </main>
 
-  <footer>
-    <p>&copy; 2023 Chloe Dress Store. All rights reserved.</p>
-  </footer>
-  
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <footer id="kontakt">
+        <div class="footer-content">
+            <h3 class="footer-logo">Chloe Dress Store</h3>
+            <div class="social-icons">
+                <a href="https://wa.me/355686715188" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://instagram.com/chloe_dress_store" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+                <a href="https://tiktok.com/@chloe_dress" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2026 Chloe Dress Store. Të gjitha të drejtat të rezervuara.</div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => navMenu.classList.remove('active'));
+        });
+    </script>
 </body>
-
-</html> 
+</html>
